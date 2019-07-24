@@ -26,7 +26,7 @@ SECRET_KEY = 'hknu3j*1_4$=@eenih-6e&ymj3s14r^2uda6wz@$g&ziiahn6f'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-	'crappycars.herokuapp.com/', '127.0.0.1'
+	'crappycars.herokuapp.com', '127.0.0.1'
 ]
 
 
