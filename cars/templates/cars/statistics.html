@@ -1,0 +1,33 @@
+{% extends 'cars/base.html' %}
+
+
+{% block script %}
+{% load static from staticfiles %}
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+        <div class="container">
+                {% if summary %}
+                        <div class="content" id="ols">
+                        {% for table in summary %}
+                                {{table|safe}}
+                        {% endfor %}
+                        </div>
+                {% else %}
+                        {{df|safe}}
+                {% endif %}
+        </div>
+</section>
+
+<section class="section">
+        <div class="container">
+                <div class="content">
+                        {{chart|safe}}
+                </div>
+        </div>
+</section>
+
+{% endblock %}

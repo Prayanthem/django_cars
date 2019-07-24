@@ -1,0 +1,26 @@
+{% extends 'cars/base.html' %}
+{% block content %}
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+        <h1 class="title">
+            {{car.name}}
+        </h1>
+        <h2 class="subtitle">
+            {{car.header}}
+        </h2>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container is-mobile is-centered">
+        <ul>
+        {% for key, value in ser_car.items %}
+            <li>
+                <p>{{ key }} : {{ value }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}

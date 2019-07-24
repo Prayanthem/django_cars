@@ -1,0 +1,51 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+{% load static from staticfiles %}
+<section class="section">
+        <div class="container">
+                <div class="content">
+                        <form class="price_form group" method="GET">
+                                <label class="price_label">     
+                                        {{ form.model }}
+                                        {{ form.km }}
+                                        <input class="button is-light" type="submit" value="Submit input">
+                                </label>
+                        </form>
+                </div>
+        </div>
+</section>
+
+<section class="section">
+        <div class="container">
+                <div class="content">
+                        <h1 class="title" style="text-align: center">
+                                {{estimated_price}}
+                        </h1>
+                </div>
+        </div>
+</section>
+
+<section class="section">
+        <div class="container">
+                {% if summary %}
+                        <div class="content" id="ols">
+                        {% for table in summary %}
+                                {{table|safe}}
+                        {% endfor %}
+                        </div>
+                {% else %}
+                        {{df|safe}}
+                {% endif %}
+        </div>
+</section>
+
+<section class="">
+        <div class="container">
+                <div class="content">
+                                {{conf_int}}
+                </div>
+        </div>
+</section>
+
+{% endblock %}

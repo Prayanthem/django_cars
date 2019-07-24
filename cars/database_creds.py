@@ -1,0 +1,5 @@
+DB_HOST = 'localhost'
+DB_PORT = '5432'
+DB_NAME = 'cars'
+DB_USER = 'postgres'
+DB_PW = 'pf46556455'
