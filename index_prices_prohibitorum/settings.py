@@ -25,7 +25,9 @@ SECRET_KEY = 'hknu3j*1_4$=@eenih-6e&ymj3s14r^2uda6wz@$g&ziiahn6f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+	'crappycars.herokuapp.com/', '127.0.0.1'
+]
 
 
 # Application definition
