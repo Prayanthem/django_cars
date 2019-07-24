@@ -1,1 +1,1 @@
-web: gunicorn locallibrary.wsgi --log-file -
+web: gunicorn index_prices_prohibitorum.wsgi --log-file -
