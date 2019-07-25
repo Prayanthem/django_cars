@@ -7,7 +7,6 @@ from .forms import SearchForm, PriceCalculatorForm
 import json
 
 def index(request):
-    
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
@@ -31,8 +30,14 @@ def detail(request, finn_kode):
         'ser_car' : ser_car,
     })
 
-def results(request, car_id):
-    return HttpResponse("You're looking at the results of %s" % car_id)
+def methodology(request):
+    return renter(request, 'cars/methodology.html')
+
+def contact(request):
+    return renter(request, 'cars/contact.html')
+
+def howto(request):
+    return renter(request, 'cars/how_to.html')
 
 def statistics(request, car_name):
     anal = analysis()
