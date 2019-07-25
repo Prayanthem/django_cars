@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'index_prices_prohibitorum.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cars',
-        'USER': 'postgres',
-        'PASSWORD' : 'pf46556455',
-        'HOST': 'localhost',
+        'NAME': 'dpe72vddeoiuu',
+        'USER': 'wfwabxkquxqlgu',
+        'PASSWORD' : 'cb87a41b5e3315ffddb8d2932394afbcf92c43656f4daed9bbe614a5014072ec',
+        'HOST': 'ec2-54-243-208-234.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }

@@ -58,7 +58,7 @@ class MyAnalysis():
                 self.df = self.get_dataframe_django(name)
 
                 #if len(self.df.index) >= 30:
-                f = "pris ~ Kmstand + Årsmodell + Effekt"
+                f = "pris ~ Kmstand"
                 model = sm.formula.ols(f, data=self.df, missing='drop').fit()
                 return model
 
