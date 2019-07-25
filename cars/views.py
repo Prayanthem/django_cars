@@ -31,13 +31,13 @@ def detail(request, finn_kode):
     })
 
 def methodology(request):
-    return renter(request, 'cars/methodology.html')
+    return render(request, 'cars/methodology.html')
 
 def contact(request):
-    return renter(request, 'cars/contact.html')
+    return render(request, 'cars/contact.html')
 
 def howto(request):
-    return renter(request, 'cars/how_to.html')
+    return render(request, 'cars/how_to.html')
 
 def statistics(request, car_name):
     anal = analysis()
