@@ -12,6 +12,8 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     # ex: /cars/methodology/
     path('howto/', views.howto, name='howto'),
+    # ex: /cars/methodology/
+    path('legal/', views.legal, name='legal'),
     # ex: /cars/price/
     path('price/', views.price_calculator, name='price_calculator'),
     # ex: /cars/Audi+A5

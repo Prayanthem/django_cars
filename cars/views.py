@@ -39,6 +39,9 @@ def contact(request):
 def howto(request):
     return render(request, 'cars/how_to.html')
 
+def legal(request):
+    return render(request, 'cars/legal.html')
+
 def statistics(request, car_name):
     anal = analysis()
 
