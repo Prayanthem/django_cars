@@ -43,11 +43,15 @@ def index(request):
     return render(request, "cars/index.html", context)
 
 def detail(request, finn_kode):
+    anal = MyAnalysis()
+
     car = get_object_or_404(Car, Finn_kode=finn_kode)
-    ser_car = model_to_dict(Car.objects.get(Finn_kode=finn_kode))
+    ser_car = model_to_dict(car)
+    price_history = anal.graph_price_history(finn_kode)
     return render(request, "cars/detail.html", {
         'car' : car,
         'ser_car' : ser_car,
+        'chart' : price_history,
     })
 
 def display_data(request):

@@ -23,4 +23,15 @@
         </ul>
     </div>
 </section>
+
+<section class="section">
+        <div class="container">
+                <div class="content">
+                    <h2 class="subtitle">Price History</h2>
+                        {% if chart %}
+                                {{chart|safe}}
+                        {% endif %}
+                </div>
+        </div>
+</section>
 {% endblock %}

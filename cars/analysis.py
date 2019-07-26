@@ -83,6 +83,33 @@ class MyAnalysis():
         def find_underperformers(self, model):
                 pass
 
+        def graph_price_history(self, finn_kode):
+                car = Car.objects.filter(Finn_kode=finn_kode).get()
+                prices = Price.objects.filter(car=car).values()
+                df = pd.DataFrame(prices)
+
+                y = df['price']
+                x = df['date']
+
+                history = go.Scatter(x=x,
+                                y=y,
+                                mode='lines+markers',
+                                name='Prices'
+                                )
+
+                fig = go.Figure(
+                        data=[history]
+                )
+
+                # Get HTML representation of plotly.js and this figure
+                plot_div = plot(fig, output_type='div', include_plotlyjs=True)
+
+                return plot_div
+
+
+
+
+
         def graph_model(self, df, model, fitted=False, CI=False, PI=False):
                 y = df['pris']
                 x = df['Kmstand']
