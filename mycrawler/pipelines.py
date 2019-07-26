@@ -13,6 +13,7 @@ class MycrawlerPipeline(object):
         import sys
         import os
         import django
+        from django.utils import timezone
         path = 'C:/Users/taplop/Code/index_prices_prohibitorum'
         if path not in sys.path:
             sys.path.append(path)
@@ -21,48 +22,62 @@ class MycrawlerPipeline(object):
 
         # Creating model instances and saving them to DB
         from cars.models import Car, Price
-        car = Car()
-        car.Antalldører= item['Antalldører']
-        car.Antalleiere= item['Antalleiere']
-        car.Antallseter= item['Antallseter']
-        car.Årsavgift = item['Årsavgift']
-        car.Årsmodell= item['Årsmodell']
-        car.Avgiftsklasse= item['Avgiftsklasse']
-        car.Bilenståri= item['Bilenståri']
-        car.ChassisnrVIN= item['ChassisnrVIN']
-        car.CO2utslipp= item['CO2utslipp']
-        car.Drivstoff= item['Drivstoff']
-        car.Effekt= item['Effekt']
-        car.Farge= item['Farge']
-        car.Fargebeskrivelse= item['Fargebeskrivelse']
-        car.foorstegangregistrert= item['foorstegangregistrert']
-        car.Girkasse= item['Girkasse']
-        car.header= item['header']
-        car.Hjuldrift= item['Hjuldrift']
-        car.Karosseri= item['Karosseri']
-        car.Kmstand= item['Kmstand']
-        car.last_updated = date.today()
-        car.name= item['name']
-        car.Omregistrering = item['Omregistrering']
-        car.Priseksomreg = item['Priseksomreg']
-        car.Regnr= item['Regnr']
-        car.Salgsform= item['Salgsform']
-        car.Sylindervolum= item['Sylindervolum']
-        car.totalpris= item['totalpris']
-        car.Vekt= item['Vekt']
 
-        car.RekkeviddeWLTP = item['RekkeviddeWLTP']
-        car.Batterikapasitet = item['Batterikapasitet']
-        
-        # Farger
-        car.Interiørfarge = item['Interiørfarge']
+        if item['Finn_kode'] in Car.objects.all().only('Finn_kode'):
+            print('Car already exists.')
+            car = Car.objects.filter(Finn_kode=item['Finn_kode'])
+            temp_age = car.created_at - date.today()
+            car.last_updated = date.today()
+            if car.age < temp_age.days:
+                car.age = temp_age.days
+                car.save()
+        else:
+            car = Car()
 
-        # Finn
-        car.Finn_kode = item['Finn_kode']
 
-        print(car)
 
-        car.save()
+            # Finn
+            car.Finn_kode = item['Finn_kode']
+
+            # General info
+            car.Antalldører= item['Antalldører']
+            car.Antalleiere= item['Antalleiere']
+            car.Antallseter= item['Antallseter']
+            car.Årsavgift = item['Årsavgift']
+            car.Årsmodell= item['Årsmodell']
+            car.Avgiftsklasse= item['Avgiftsklasse']
+            car.Bilenståri= item['Bilenståri']
+            car.ChassisnrVIN= item['ChassisnrVIN']
+            car.CO2utslipp= item['CO2utslipp']
+            car.Drivstoff= item['Drivstoff']
+            car.Effekt= item['Effekt']
+            car.Farge= item['Farge']
+            car.Fargebeskrivelse= item['Fargebeskrivelse']
+            car.foorstegangregistrert= item['foorstegangregistrert']
+            car.Girkasse= item['Girkasse']
+            car.header= item['header']
+            car.Hjuldrift= item['Hjuldrift']
+            car.Karosseri= item['Karosseri']
+            car.Kmstand= item['Kmstand']
+            car.last_updated = date.today()
+            car.name= item['name']
+            car.Omregistrering = item['Omregistrering']
+            car.Priseksomreg = item['Priseksomreg']
+            car.Regnr= item['Regnr']
+            car.Salgsform= item['Salgsform']
+            car.Sylindervolum= item['Sylindervolum']
+            car.totalpris= item['totalpris']
+            car.Vekt= item['Vekt']
+
+            car.RekkeviddeWLTP = item['RekkeviddeWLTP']
+            car.Batterikapasitet = item['Batterikapasitet']
+            
+            # Farger
+            car.Interiørfarge = item['Interiørfarge']
+
+            print(car)
+
+            car.save()
 
         price = Price()
         price.date = date.today()

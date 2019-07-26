@@ -25,7 +25,9 @@
 <section class="section">
         <div class="container">
                 <div class="content">
-                        {{chart|safe}}
+                        {% if chart %}
+                                {{chart|safe}}
+                        {% endif %}
                 </div>
         </div>
 </section>

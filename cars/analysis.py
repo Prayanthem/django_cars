@@ -7,8 +7,7 @@ This is a temporary script file.
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn import datasets
+from patsy.contrasts import Treatment
 import json
 from sqlalchemy import create_engine
 from index_prices_prohibitorum.settings import DATABASES
@@ -31,19 +30,17 @@ class MyAnalysis():
                 print(conn_url)
                 return create_engine(conn_url)
 
-        def get_dataframe(self, name):
+        def get_dataframe(self):
+                dicts = Car.objects.all().values()[1:50]
+                price_l = []
+                for car in Car.objects.all()[1:50]:
+                        prices = Price.objects.filter(car=car).latest('date')
+                        price_l.append(prices.price)
+                df = pd.DataFrame(dicts)
+                df_prices = pd.DataFrame({'pris' : price_l})
+                return pd.concat([df,df_prices], axis=1)  
 
-                dicts = {}
-                for i,car in enumerate(Car.objects.filter(name=name)):
-                        print(i,car)
-                        price = Price.objects.filter(car=car).latest('date')
-                        car_dict = car.__dict__
-                        car_dict['pris'] = price.price
-                        dicts[i] = car_dict
-                df = pd.DataFrame(dicts).T
-                return df
-
-        def get_dataframe_django(self, name):
+        def get_dataframe_by_name(self, name):
                 dicts = Car.objects.filter(name=name).values()
                 price_l = []
                 for car in Car.objects.filter(name=name):
@@ -53,12 +50,22 @@ class MyAnalysis():
                 df_prices = pd.DataFrame({'pris' : price_l})
                 return pd.concat([df,df_prices], axis=1)
 
-        def get_model(self, name):
-                self.name = name
-                self.df = self.get_dataframe_django(name)
+        def get_dataframe_by_karosseri(self, karosseri):
+                dicts = Car.objects.filter(Karosseri=karosseri).values()
+                price_l = []
+                for car in Car.objects.filter(Karosseri=karosseri):
+                        prices = Price.objects.filter(car=car).latest('date')
+                        price_l.append(prices.price)
+                df = pd.DataFrame(dicts)
+                df_prices = pd.DataFrame({'pris' : price_l})
+                return pd.concat([df,df_prices], axis=1)
 
+        def get_model(self, df, formula='pris ~ Kmstand'):
                 #if len(self.df.index) >= 30:
-                f = "pris ~ Kmstand"
+                f = formula
+                self.df = df
+                levels = list(range(0, len(df.name.unique())))
+                contrast = Treatment(reference=0).code_without_intercept(levels)
                 model = sm.formula.ols(f, data=self.df, missing='drop').fit()
                 return model
 
@@ -67,7 +74,6 @@ class MyAnalysis():
                 return [summ.tables[0].as_html(), summ.tables[1].as_html(), summ.tables[2].as_html()]
 
         def get_equation(self, model):
-                summ = model.summary()
                 dicts = {}
                 dicts["intercept"] = model.params[0]
                 dicts["km"] = model.params[1]
@@ -77,7 +83,7 @@ class MyAnalysis():
         def find_underperformers(self, model):
                 pass
 
-        def graph_model(self, df, model):
+        def graph_model(self, df, model, fitted=False, CI=False, PI=False):
                 y = df['pris']
                 x = df['Kmstand']
 
@@ -103,12 +109,12 @@ class MyAnalysis():
                 return plot_div
 
         def graph_model_interactive(self, df, model): #https://community.plot.ly/t/hyperlink-to-markers-on-map/17858/6
-                y = df['pris']
-                x = df['Kmstand']
-                links = df['Finn_kode']
+                y = self.df['pris']
+                x = self.df['Kmstand']
+                links = self.df['Finn_kode']
 
-                y_prediction = model.predict()
-                predictions = model.get_prediction(df)
+                fitted = model.fittedvalues
+                predictions = model.get_prediction(self.df)
                 alpha = 0.1
                 frame = predictions.summary_frame(alpha=alpha) #https://stackoverflow.com/questions/17559408/confidence-and-prediction-intervals-with-statsmodels
 
@@ -119,10 +125,10 @@ class MyAnalysis():
                                 name="Observations",
                                 customdata=links,
                                 )
-                prediction = go.Scatter(x=x,
-                                y=y_prediction,
+                regression_line = go.Scatter(x=x,
+                                y=fitted,
                                 mode='lines',
-                                name='Prediction',
+                                name='Fitted values',
                                 hoverinfo='skip', #doesn't display anything on hover
                                 )
                 ci_lower = go.Scatter(x=x,
@@ -163,7 +169,7 @@ class MyAnalysis():
 
                 # Build Figure
                 fig = go.Figure(
-                data=[raw_data, prediction, ci_lower, ci_upper, pi_lower, pi_upper],
+                data=[raw_data, regression_line, ci_lower, ci_upper, pi_lower, pi_upper],
                 layout=layout,
                 )
                 

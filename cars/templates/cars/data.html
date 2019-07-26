@@ -1,0 +1,13 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="content" style="overflow:auto">
+            {{df|safe}}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

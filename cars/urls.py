@@ -16,8 +16,12 @@ urlpatterns = [
     path('legal/', views.legal, name='legal'),
     # ex: /cars/price/
     path('price/', views.price_calculator, name='price_calculator'),
-    # ex: /cars/Audi+A5
-    path('<str:car_name>/', views.statistics, name='statistics'),
+    # ex: /cars/data/
+    path('data/', views.display_data, name='display_data'),
+    # ex: /cars/model/Audi+A5
+    path('categories/<str:karosseri>/', views.karosseri_statistics, name='karosseri_statistics'),
+    # ex: /cars/type/SUV
+    path('model/<str:car_name>/', views.model_statistics, name='model_statistics'),
     # ex: /cars/Audi+A5/1039383
     re_path(r'(?P<finn_kode>\d+)/?$', views.detail, name='detail'), #I dont think this is an optimal pattern
 ]

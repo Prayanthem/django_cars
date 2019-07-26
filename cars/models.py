@@ -6,9 +6,10 @@ class Car(models.Model):
     # General
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateField(blank=True, null=True,default=None)
+    age=models.IntegerField(blank=True, null=True, default=0)
     name=models.TextField(blank=True, null=True, max_length=200,default=None)
     header=models.TextField(blank=True, null=True, default=0)
-    Finn_kode = models.CharField(blank=True, null=True, max_length=200)
+    Finn_kode = models.CharField(primary_key=True, blank=True, null=False, max_length=200)
 
     # From Scrapy
     #############
