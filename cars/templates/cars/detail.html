@@ -15,11 +15,13 @@
 <section class="section">
     <div class="container is-mobile is-centered">
         <ul>
-        {% for key, value in ser_car.items %}
-            <li>
-                <p>{{ key }} : {{ value }}</p>
-            </li>
-        {% endfor %}
+            <div class="list">
+                {% for key, value in ser_car.items %}
+                    <li>
+                        <p class="list-item">{{ key }} : {{ value }}</p>
+                    </li>
+                {% endfor %}
+            </div>
         </ul>
     </div>
 </section>
