@@ -48,6 +48,10 @@ class ModelListView(ListView):
     queryset = model_list
     context_object_name = 'model_list'
 
+    def get_context_data(self,**kwargs):
+        context = super(ModelListView,self).get_context_data(**kwargs)
+        return context
+
 class CategoryListView(ListView):
     model = Car
     template_name = 'cars/category_list.html'  

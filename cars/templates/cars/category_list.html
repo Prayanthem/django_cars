@@ -11,6 +11,9 @@
             {# .... **Normal content list, maybe a table** .... #}
             {% if model_list %}
                 <table id="models">
+                    <tr>
+                        <th>Car Category</th>
+                    </tr>
                     {% for model in model_list %}
                         <tr>
                             <td>{{ model.Karosseri }}</td>

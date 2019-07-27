@@ -55,6 +55,7 @@ outline: none;
 .price_label + .button {
     align-self: flex-end;
 }
+
 .searchform + input[type="text"] {
     border: 2px solid #737373;
     border-width: 0 0 3px;

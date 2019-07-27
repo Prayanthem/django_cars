@@ -11,10 +11,14 @@
             {# .... **Normal content list, maybe a table** .... #}
             {% if model_list %}
                 <table id="models">
+                    <tr>
+                        <th>Car Model</th>
+                        <th>#Cars</th>
+                    </tr>
                     {% for model in model_list %}
                         <tr>
                             <td>{{ model.name }}</td>
-                            <td>{{ model.n }}</td>
+                            <td><i>...</i></td>
                             <td><a href="{{ model.name }}/" class="see_detail">detail</a></td>
                         </tr>
                     {% endfor %}
