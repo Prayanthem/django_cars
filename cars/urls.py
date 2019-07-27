@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path, re_path
 from . import views
-from cars.views import CarListView
+from cars.views import CarListView, ModelListView
 
 app_name = 'cars'
 urlpatterns = [
@@ -9,13 +9,15 @@ urlpatterns = [
     path('', views.index, name='index'),
     # ex: /cars/car/
     path('car/', CarListView.as_view(), name='car_list'),
+    # ex: /cars/model/
+    path('model/', ModelListView.as_view(), name='model_list'),
     # ex: /cars/methodology/
     path('methodology/', views.methodology, name='methodology'),
-    # ex: /cars/methodology/
+    # ex: /cars/contact/
     path('contact/', views.contact, name='contact'),
-    # ex: /cars/methodology/
+    # ex: /cars/howto/
     path('howto/', views.howto, name='howto'),
-    # ex: /cars/methodology/
+    # ex: /cars/legal/
     path('legal/', views.legal, name='legal'),
     # ex: /cars/price/
     path('price/', views.price_calculator, name='price_calculator'),

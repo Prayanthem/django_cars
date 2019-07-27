@@ -67,26 +67,55 @@
     
     {% block content %}
     {% endblock %}
-    <footer class='footer'>
-            <div class="content has-text-centered">
-                <ul>
-                    <p>
-                        Django
-                    </p>
-                    <p>
-                        FontAwesome
-                    </p>
-                    <p>
-                        Scrapy
-                    </p>
-                    <p>
-                        Bulma by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-                        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0.</a>
-                    </p>
-                </ul>
+    <footer class='footer' id="upper-footer">
+            <div class="container">
+                    <div class="columns">
+                            <div class="column">
+                                <h2 class="is-size-5">Learn More</h2>
+                                <ul>
+                                  <li>About CrappyCar</li>
+                                  <li>How to use</li>
+                                  <li>Privacy Policy</li>
+                                </ul>
+                            </div>
+                            <div class="column">
+                                <h2 class="is-size-5">Contact us</h2>
+                                <ul>
+                                    <li>Email</li>
+                                    <li>Mailing List</li>
+                                    <li>Linkedin</li>
+                                </ul>
+                            </div>
+                            <div class="column">
+                                <h2 class="is-size-5">Category</h2>
+                                <ul>
+                                    <li>Item</li>
+                                    <li>Item</li>
+                                    <li>Item</li>
+                                </ul>
+                            </div>
+                          </div>
             </div>
-            <div class="content has-text-centered">
+    </footer>
+    <footer class="footer" id="bottom-footer">
+            <div class="container">
+                    <div class="footer-logo">
+                      <a class="logo" href="https://www.djangoproject.com/">Django</a>
+                    </div>
+                    <ul class="thanks">
+                      <li>
+                        <span>Hosting by</span> <a class="rackspace" href="https://www.rackspace.com">Rackspace</a>
+                      </li>
+                      <li class="design"><span>Design by</span> <a class="threespot" href="https://www.threespot.com">Threespot</a> <span class="ampersand">&amp;</span> <a class="andrevv" href="http://andrevv.com/"></a></li>
+                    </ul>
+                    <p class="copyright">&copy; 2005-2019
+                      <a href="https://www.djangoproject.com/foundation/"> Django Software
+                      Foundation</a> and individual contributors. Django is a
+                      <a href="https://www.djangoproject.com/trademarks/">registered
+                      trademark</a> of the Django Software Foundation.
+                    </p>
+                  </div>
+                </div>
     </footer>
 </body>
 </html>

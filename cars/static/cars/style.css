@@ -15,10 +15,12 @@ body {
 .section {
     flex: 1 0 auto;
 }
-.footer {
-    flex-shrink: 0;
-    background-color: #363636 !important;
+#upper-footer {
+    background-color: #292929;
     color:white;
+}
+#bottom-footer {
+    background-color: #000000;
 }
 
 
