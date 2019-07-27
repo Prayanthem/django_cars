@@ -25,5 +25,5 @@ urlpatterns = [
     # ex: /cars/type/SUV
     path('model/<str:car_name>/', views.model_statistics, name='model_statistics'),
     # ex: /cars/Audi+A5/1039383
-    re_path(r'(?P<finn_kode>\d+)/?$', views.detail, name='detail'), #I dont think this is an optimal pattern
+    re_path(r'car/(?P<finn_kode>\d+)/', views.detail, name='detail'), #I dont think this is an optimal pattern
 ]

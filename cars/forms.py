@@ -20,17 +20,25 @@ class SearchForm(forms.Form):
 class PriceCalculatorForm(forms.Form):
     model = forms.CharField(widget=forms.TextInput(attrs={
         'type' : 'text',
-        'class' : 'search-box is-size-4-desktop', 
+        'class' : 'input is-medium',
         'placeholder':'Name of car model',
         'order' : '1'
     }))
 
     km = forms.IntegerField(widget=forms.TextInput(attrs={
         'type' : 'text',
-        'class' : 'search-box is-size-4-desktop', 
+        'class' : 'input is-medium',
         'placeholder':'Number of kilometers ran',
         'order' : '2',
     }))
+
+    year = forms.IntegerField(required=False, widget=forms.TextInput(attrs={
+        'type' : 'text',
+        'class' : 'input is-medium',
+        'placeholder':'Model Year',
+        'order' : '3',
+    }))
+
     def clean_km(self):
         data = self.cleaned_data['km']
         if not isinstance(data, int):
@@ -41,5 +49,8 @@ class PriceCalculatorForm(forms.Form):
         ##FIx a check for if mdoel in modelnames
         if r'[^A-Za-z0-9]' in data:
             raise ValidationError(_('Invalid model name - model contains illegal characters'))
+        return data
+    def clean_year(self):
+        data = self.cleaned_data['year']
         return data
 

@@ -6,11 +6,29 @@
         <div class="container">
                 <div class="content">
                         <form class="price_form group" method="GET">
-                                <label class="price_label">     
-                                        {{ form.model }}
-                                        {{ form.km }}
-                                        <input class="button is-light" type="submit" value="Submit input">
-                                </label>
+                                <div class="field">
+                                        <label class="label">Model Name</label>
+                                        <div class="control">
+                                                {{form.model}}
+                                        </div>
+                                </div>
+                                <div class="field">
+                                        <label class="label">Milage</label>
+                                        <div class="control">
+                                               {{form.km}} 
+                                        </div>
+                                </div>
+                                <div class="field">
+                                        <label class="label">Model Year</label>
+                                        <div class="control">
+                                                {{form.year}}
+                                        </div>
+                                </div>
+                                <div class="field">
+                                        <div class="control">
+                                                <input class="button is-light" type="submit" value="Submit input">
+                                        </div>
+                                </div>
                         </form>
                 </div>
         </div>
@@ -37,14 +55,6 @@
                 {% else %}
                         {{df|safe}}
                 {% endif %}
-        </div>
-</section>
-
-<section class="">
-        <div class="container">
-                <div class="content">
-                                {{conf_int}}
-                </div>
         </div>
 </section>
 

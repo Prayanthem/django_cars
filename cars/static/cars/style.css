@@ -28,14 +28,7 @@ display: block;
 overflow: hidden;
 width: 50%;
 }
-label, input {
-vertical-align: baseline;
-color: #737373;
-}
-label {
-margin: 0.125em 0.125em 0 0;
-float: right;
-}
+
 input[type="search"] {
 border: 2px solid #737373;
 border-width: 0 0 3px;
@@ -43,7 +36,6 @@ background-color: transparent;
 font: "Open Sans", sans-serif;
 padding: 0.125em 0.225em;
 width: 80%;
-float: left;
 }
 input[type="search"]:focus {
 color: #E18728;
@@ -51,27 +43,24 @@ border-color: #E18728;
 outline: none;
 }
 .price_form {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    text-align: center;
+    width:70%;
+    margin:0 auto;
     height:250px;
 }
 .price_label {
-    margin-top:180px;
+    margin-bottom:1rem;
 }
 .price_label + .button {
     align-self: flex-end;
 }
-input[type="text"] {
+.searchform + input[type="text"] {
     border: 2px solid #737373;
     border-width: 0 0 3px;
     background-color: transparent;
     font: "Open Sans", sans-serif;
     padding: 0.125em 0.225em;
     }
-input[type="text"]:focus {
+.searchform + input[type="text"]:focus {
 color: #E18728;
 border-color: #E18728;
 outline: none;

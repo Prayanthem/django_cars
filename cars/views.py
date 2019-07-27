@@ -109,13 +109,22 @@ def price_calculator(request):
         if form.is_valid():
             name = form.cleaned_data['model']
             km = form.cleaned_data['km']
-            df = anal.get_dataframe_by_name(name)
-            model = anal.get_model(df)
-            equation = anal.get_equation(model)
-            estimated_price = equation['intercept'] + km*equation['km']
-            estimated_price = "{:.0f} NOK".format(estimated_price)
-            summary = anal.get_summary(model)
-            conf_int = model.conf_int(alpha=0.05, cols=None)
+            if form.cleaned_data['year']:
+                year = form.cleaned_data['year']
+                df = anal.get_dataframe_by_name(name)
+                model = anal.get_model(df, formula="pris ~ Kmstand + Årsmodell")
+                equation = anal.get_equation(model)
+                print(type(equation))
+                estimated_price = equation['Intercept'] + km*equation['Kmstand'] + year*equation['Årsmodell']
+                estimated_price = "{:.0f} NOK".format(estimated_price)
+                summary = anal.get_summary(model)
+            else:
+                df = anal.get_dataframe_by_name(name)
+                model = anal.get_model(df)
+                equation = anal.get_equation(model)
+                estimated_price = equation['Intercept'] + km*equation['Kmstand']
+                estimated_price = "{:.0f} NOK".format(estimated_price)
+                summary = anal.get_summary(model)
         else:
             print("Form is not valid.")
     else:

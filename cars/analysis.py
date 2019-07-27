@@ -77,7 +77,7 @@ class MyAnalysis():
                 dicts = {}
                 dicts["intercept"] = model.params[0]
                 dicts["km"] = model.params[1]
-                return dicts
+                return model.params.to_dict()
 
 
         def find_underperformers(self, model):
