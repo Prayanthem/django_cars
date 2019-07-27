@@ -60,7 +60,7 @@ class MyAnalysis():
                 df_prices = pd.DataFrame({'pris' : price_l})
                 return pd.concat([df,df_prices], axis=1)
 
-        def get_model(self, df, formula='pris ~ Kmstand'):
+        def get_model(self, df, formula='np.log(pris) ~ Kmstand'):
                 #if len(self.df.index) >= 30:
                 f = formula
                 self.df = df

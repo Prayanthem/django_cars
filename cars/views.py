@@ -9,6 +9,7 @@ from django.template import RequestContext
 from django.views.generic.list import ListView
 from django.utils import timezone
 from django.core.paginator import Paginator
+import numpy as np
 
 '''
     Static Views
@@ -110,7 +111,7 @@ def karosseri_statistics(request, karosseri):
     anal = MyAnalysis()
 
     df = anal.get_dataframe_by_karosseri(karosseri)
-    model = anal.get_model(df, formula='pris ~ Kmstand + C(name, Treatment) + Årsmodell')
+    model = anal.get_model(df, formula='np.log(pris) ~ Kmstand + C(name, Treatment) + Årsmodell')
     summary = anal.get_summary(model)
     chart = None#anal.graph_model_interactive(df, model)
 
@@ -134,17 +135,16 @@ def price_calculator(request):
             if form.cleaned_data['year']:
                 year = form.cleaned_data['year']
                 df = anal.get_dataframe_by_name(name)
-                model = anal.get_model(df, formula="pris ~ Kmstand + Årsmodell")
+                model = anal.get_model(df, formula="np.log(pris) ~ Kmstand + Årsmodell")
                 equation = anal.get_equation(model)
-                print(type(equation))
-                estimated_price = equation['Intercept'] + km*equation['Kmstand'] + year*equation['Årsmodell']
+                estimated_price = np.exp(equation['Intercept'] + km*equation['Kmstand'] + year*equation['Årsmodell'])
                 estimated_price = "{:.0f} NOK".format(estimated_price)
                 summary = anal.get_summary(model)
             else:
                 df = anal.get_dataframe_by_name(name)
                 model = anal.get_model(df)
                 equation = anal.get_equation(model)
-                estimated_price = equation['Intercept'] + km*equation['Kmstand']
+                estimated_price = np.exp(equation['Intercept'] + km*equation['Kmstand'])
                 estimated_price = "{:.0f} NOK".format(estimated_price)
                 summary = anal.get_summary(model)
         else:
