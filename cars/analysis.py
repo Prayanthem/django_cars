@@ -136,7 +136,8 @@ class MyAnalysis():
                 return plot_div
 
         def graph_model_interactive(self, df, model): #https://community.plot.ly/t/hyperlink-to-markers-on-map/17858/6
-                y = self.df['pris']
+                self.df = df.sort_values('Kmstand') #x was out of order from what it was in summary.frame causing weird CI and PI
+                y = np.log(self.df['pris'])
                 x = self.df['Kmstand']
                 links = self.df['Finn_kode']
 
@@ -191,7 +192,7 @@ class MyAnalysis():
                 layout = go.Layout(
                 hovermode='closest',
                 height=800,
-                title="Alpha {}".format(alpha),
+                title="Log-linear model with alpha = {}".format(alpha),
                 )
 
                 # Build Figure

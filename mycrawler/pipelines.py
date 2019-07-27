@@ -23,20 +23,22 @@ class MycrawlerPipeline(object):
         # Creating model instances and saving them to DB
         from cars.models import Car, Price
 
-        if item['Finn_kode'] in Car.objects.all().only('Finn_kode').values():
-            print('Car already exists.')
-            car = Car.objects.filter(Finn_kode=item['Finn_kode'])
-            temp_age = car.created_at - date.today()
-            car.last_updated = date.today()
+        codes = Car.objects.values_list('Finn_kode', flat=True).all()
+        if item['Finn_kode'] in codes:
+            print('This is a crappy car.')
+            car = Car.objects.filter(Finn_kode=item['Finn_kode']).get()
+            temp_age = timezone.now() - car.created_at
+            print('Age: {}'.format(temp_age))
+            car.last_updated = timezone.now()
             if car.age < temp_age.days:
+                print('New age {}'.format(temp_age))
                 car.age = temp_age.days
                 car.save()
         else:
-            return
-        '''
+            print("Car is not in DB.")
+            return 
+            # Consider: https://stackoverflow.com/questions/8372703/how-can-i-use-different-pipelines-for-different-spiders-in-a-single-scrapy-proje
             car = Car()
-
-
 
             # Finn
             car.Finn_kode = item['Finn_kode']
@@ -61,7 +63,7 @@ class MycrawlerPipeline(object):
             car.Hjuldrift= item['Hjuldrift']
             car.Karosseri= item['Karosseri']
             car.Kmstand= item['Kmstand']
-            car.last_updated = date.today()
+            car.last_updated = timezone.now()
             car.name= item['name']
             car.Omregistrering = item['Omregistrering']
             car.Priseksomreg = item['Priseksomreg']
@@ -89,5 +91,4 @@ class MycrawlerPipeline(object):
         price.save()
 
         return item
-        '''
 

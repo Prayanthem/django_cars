@@ -47,3 +47,7 @@ class CarItem(scrapy.Item):
     Batterikapasitet = scrapy.Field()
     RekkeviddeWLTP = scrapy.Field()
     Interiørfarge = scrapy.Field()
+
+    def __repr__(self):
+        """only print out Finn_kode after exiting the Pipeline"""
+        return repr({"Finn_kode": self['Finn_kode']})

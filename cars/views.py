@@ -17,8 +17,11 @@ import numpy as np
 def methodology(request):
     return render(request, 'cars/methodology.html')
 
-def contact(request):
+def contact_us(request):
     return render(request, 'cars/contact.html')
+
+def about_us(request):
+    return render(request, 'cars/about.html')
 
 def howto(request):
     return render(request, 'cars/how_to.html')
@@ -32,7 +35,7 @@ def legal(request):
 class CarListView(ListView):
     model = Car
     template_name = 'cars/car_list.html'
-    car_list = Car.objects.all().order_by('last_updated')
+    car_list = Car.objects.all().order_by('-age')
     queryset = car_list
     context_object_name = "car_list"   
     paginate_by = 25 

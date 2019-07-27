@@ -1,0 +1,4 @@
+1. Automate selection of undervalued cars
+2. Regress search cost (fall in reservation price)
+3. Calculate average sale time
+4. Create scheduled updates of DB and new entries (https://devcenter.heroku.com/articles/scheduler)

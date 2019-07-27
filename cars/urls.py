@@ -15,8 +15,10 @@ urlpatterns = [
     path('category/', CategoryListView.as_view(), name='category_list'),
     # ex: /cars/methodology/
     path('methodology/', views.methodology, name='methodology'),
-    # ex: /cars/contact/
-    path('contact/', views.contact, name='contact'),
+    # ex: /cars/contact-us/
+    path('contact-us/', views.contact_us, name='contact_us'),
+    # ex: /cars/about-us/
+    path('about-us/', views.about_us, name='about_us'),
     # ex: /cars/howto/
     path('howto/', views.howto, name='howto'),
     # ex: /cars/legal/

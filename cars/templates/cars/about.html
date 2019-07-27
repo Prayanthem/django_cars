@@ -1,0 +1,45 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="content">
+            <h1>About us</h1>
+            <h2>About the creator</h2>
+                <p>
+                    My name is Petter Fredrik Hemnes, and I'm a <a href='https://www.cems.org/'>CEMS MIM</a> and 
+                    MSc in Economics and Business Administration student at the <a href='https://www.nhh.no/'>Norwegian School of Economics</a> (NHH).
+                </p>
+            <a href="https://www.linkedin.com/in/petter-fredrik-hemnes-a09692147/"><i class="fab fa-linkedin-in"></i></a>
+            <h2>About the project</h2>
+                <p>
+                    I created crappycars as a programmatic response to a side-project my father (Anders) and my sister's boyfriend (Adrian) had ventured into in the spring of 2019.
+                    Adrian loves working with cars - he loves polishing them, modifying them, <i>pimping</i> them - and so my father had the idea that they could
+                    , using his capital, buy cars cheaply off of government auction websites, fix them up and resell them. Basically creating a small car flipping business.
+                    When I heard of this I wondered how they defined cheap, and found that I could use what I had learned in my study to improve on the evaluation.
+                </p>
+                <p>
+                    It seemed expedient to me that they should calculate the maximum price they were willing to bid for a car by calculating (often called reservation price):
+                    <li>
+                        The cost of reparal
+                    </li>
+                    <li>
+                        cost of capital (in this case cost of equity) - (the return they require to invest [synoynmous to the opportunity cost])
+                    </li>
+                    <li>
+                        resale value
+                    </li>
+                </p>
+                <p>
+                        They would then invest if they could purchase a car for something equal to or lower than (reservation price =) resale value - cost of reparal - cost of capital
+                </p>
+                <p>
+                    What I could help with was creating a GUI which they could use to find resale value, and also cars which where under the reservation price. 
+                    With this I created crappycars.
+                </p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
