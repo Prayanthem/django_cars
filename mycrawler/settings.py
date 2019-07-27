@@ -14,6 +14,7 @@ BOT_NAME = 'mycrawler'
 SPIDER_MODULES = ['mycrawler.spiders']
 NEWSPIDER_MODULE = 'mycrawler.spiders'
 
+#http://alexeyvishnevsky.com/2013/11/tips-on-optimizing-scrapy-for-a-high-performance/
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'mycrawler (+http://www.yourdomain.com)'

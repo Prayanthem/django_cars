@@ -3,11 +3,13 @@ import scrapy
 import re
 from ..items import CarItem
 import json
-
+import os
 
 class FinnBilFromUrlSpider(scrapy.Spider):
     name = 'finn_bil_from_url'
     allowed_domains = ["finn.no"]
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    print(dir_path)
     start_urls = [l.strip() for l in open('urls.txt').readlines()]
     #print(start_urls)
 

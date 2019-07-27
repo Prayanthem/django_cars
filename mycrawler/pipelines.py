@@ -5,26 +5,32 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from datetime import date
+import sys
+import os
+import django
+from django.utils import timezone
 
 class MycrawlerPipeline(object):
-    def process_item(self, item, spider):
-        print("Entering process_item method, and attempting to create a car object")
+    def __init__(self):
+        print('Initializing Pipeline...')
         # Importing models
-        import sys
-        import os
-        import django
-        from django.utils import timezone
-        path = 'C:/Users/taplop/Code/index_prices_prohibitorum'
+        path = 'C:/Users/taplop/Code/django_cars'
         if path not in sys.path:
             sys.path.append(path)
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'index_prices_prohibitorum.settings')
         django.setup()
 
-        # Creating model instances and saving them to DB
         from cars.models import Car, Price
+        self.codes = Car.objects.values_list('Finn_kode', flat=True).all()
 
-        codes = Car.objects.values_list('Finn_kode', flat=True).all()
-        if item['Finn_kode'] in codes:
+    def process_item(self, item, spider):
+
+        from cars.models import Car, Price
+        
+        # Creating model instances and saving them to DB
+        print("Entering process_item method, and attempting to create a car object")
+
+        if item['Finn_kode'] in self.codes:
             print('This is a crappy car.')
             car = Car.objects.filter(Finn_kode=item['Finn_kode']).get()
             temp_age = timezone.now() - car.created_at
