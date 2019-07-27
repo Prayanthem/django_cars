@@ -6,6 +6,8 @@ app_name = 'cars'
 urlpatterns = [
     # ex: /cars/
     path('', views.index, name='index'),
+    # ex: /cars/test/
+    path('test/', views.handler404, name='test'),
     # ex: /cars/methodology/
     path('methodology/', views.methodology, name='methodology'),
     # ex: /cars/methodology/

@@ -7,6 +7,11 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.content h2 {
+    margin-top:1.5rem;    
+}
+
 .section {
     flex: 1 0 auto;
 }
@@ -96,3 +101,19 @@ outline: none;
 .navbar {
     box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
 }
+
+/*Cookie Consent Begin*/
+#cookieConsent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    z-index: 9999;
+    margin:0;
+}
+
+.cookieConsentOK {
+    float:right;
+}
+/*Cookie Consent End*/

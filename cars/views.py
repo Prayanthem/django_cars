@@ -1,10 +1,11 @@
 from django.http import HttpResponse, Http404
 from .models import Car
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from .analysis import MyAnalysis
 from django.forms.models import model_to_dict
 from .forms import SearchForm, PriceCalculatorForm
 import json
+from django.template import RequestContext
 
 '''
     Static Views
@@ -20,6 +21,14 @@ def howto(request):
 
 def legal(request):
     return render(request, 'cars/legal.html')
+
+'''
+    Custom handlers
+'''
+def handler404(request, *args, **argv):
+    response = render(request, 'cars/404.html')
+    response.status_code = 404
+    return response
 
 '''
     Dynamic Views

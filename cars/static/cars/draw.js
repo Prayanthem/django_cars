@@ -1,3 +1,15 @@
+$(document).ready(function(){   
+    setTimeout(function () {
+        $("#cookieConsent").fadeIn(200);
+     }, 4000);
+    $(".button, .cookieConsentOK").click(function() {
+        $("#cookieConsent").fadeOut(200);
+    }); 
+    $("button, .delete").click(function() {
+        $("#cookieConsent").fadeOut(200);
+    }); 
+}); 
+
 window.onload = function() {
     // Get a reference to the <path>
     var path = document.querySelector('#star-path');
@@ -23,7 +35,7 @@ window.onload = function() {
     // Had to try three or four differnet methods here. Kind of a cross-browser nightmare.
     var scrollPercentage = (document.documentElement.scrollTop + document.body.scrollTop) / (2000); //document.documentElement.scrollHeight - document.documentElement.clientHeight
     var reverseScrollPercentage = scrollPercentage-1;
-    this.console.log(scrollPercentage)
+    //this.console.log(scrollPercentage)
     // Length to offset the dashes
     var drawLength = pathLength * reverseScrollPercentage;
     

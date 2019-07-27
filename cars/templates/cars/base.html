@@ -58,20 +58,27 @@
             </div>
         </div>
     </nav>
+
+    <div id="cookieConsent" class='notification is-warning'>
+        <button class="delete"></button>
+        This website is under production. 
+        <a class="cookieConsentOK button">That's Fine</a>
+    </div>
     
     {% block content %}
     {% endblock %}
     <footer class='footer'>
             <div class="content has-text-centered">
-                    <p>Django</p>
-                    <p>Font Awesome</p>
-                    <p>Scrapy</p>
-                    <p>
-                      <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
-                      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-                      is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-                    </p>
-                  </div>
+                <ul>
+                    <li>Django</li>
+                    <li>Fontawesome</li>
+                    <li>Scrapy</li>
+                    <li>Bulma by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+                        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+                        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.</li>
+                </ul>
+            </div>
+            <div class="content has-text-centered">
     </footer>
 </body>
 </html>
