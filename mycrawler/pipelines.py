@@ -23,7 +23,7 @@ class MycrawlerPipeline(object):
         # Creating model instances and saving them to DB
         from cars.models import Car, Price
 
-        if item['Finn_kode'] in Car.objects.all().only('Finn_kode'):
+        if item['Finn_kode'] in Car.objects.all().only('Finn_kode').values():
             print('Car already exists.')
             car = Car.objects.filter(Finn_kode=item['Finn_kode'])
             temp_age = car.created_at - date.today()
@@ -32,6 +32,8 @@ class MycrawlerPipeline(object):
                 car.age = temp_age.days
                 car.save()
         else:
+            return
+        '''
             car = Car()
 
 
@@ -87,4 +89,5 @@ class MycrawlerPipeline(object):
         price.save()
 
         return item
+        '''
 
