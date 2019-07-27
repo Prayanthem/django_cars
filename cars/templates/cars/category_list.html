@@ -6,15 +6,16 @@
     <div class="container">
         <div class="content">
             <h1>
-                Models
+                Categories
             </h1>
             {# .... **Normal content list, maybe a table** .... #}
             {% if model_list %}
                 <table id="models">
                     {% for model in model_list %}
                         <tr>
-                            <td>{{ model.name }}</td>
-                            <td><a href="{{ model.name }}/" class="see_detail">detail</a></td>
+                            <td>{{ model.Karosseri }}</td>
+                            <td>{{ model.n }}</td>
+                            <td><a href="{{ model.Karosseri }}/" class="see_detail">detail</a></td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -45,7 +46,7 @@
                     </div>
                 {% endif %}
             {% else %}
-                <p>No models found!!! :(</p>
+                <p>No categories found!!! :(</p>
             {% endif %}
             {# .... **More content, footer, etc.** .... #}
 

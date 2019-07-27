@@ -1,0 +1,59 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="content">
+            <h1>
+                Models
+            </h1>
+            {# .... **Normal content list, maybe a table** .... #}
+            {% if model_list %}
+                <table id="models">
+                    {% for model in model_list %}
+                        <tr>
+                            <td>{{ model.name }}</td>
+                            <td>{{ model.n }}</td>
+                            <td><a href="{{ model.name }}/" class="see_detail">detail</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {# .... **Now the pagination section** .... #}
+                {% if is_paginated %}
+                    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                       
+                            {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}" class='pagination-previous'>Previous</a>
+                            {% endif %}
+                            <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} </a>
+                            {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" class='pagination-next'>Next</a>
+                            {% endif %}
+                            <ul class="pagination-list" style='list-style: none'>
+                                    <li><a href='?page=1' class="pagination-link" aria-label="Goto page 1">1</a></li>
+                                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                    {% if page_obj.has_previous %}
+                                    <li><a class="pagination-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Goto page 45">{{ page_obj.previous_page_number }}</a></li>
+                                    {% endif %}
+                                    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{{ page_obj.number }}</a></li>
+                                    {% if page_obj.has_next %}
+                                    <li><a class="pagination-link" href="?page={{ page_obj.next_page_number }}" aria-label="Goto page 47">{{ page_obj.next_page_number }}</a></li>
+                                    {% endif %}
+                                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                    <li><a href='?page={{page_obj.paginator.num_pages}}' class="pagination-link" aria-label="Goto page 86">{{page_obj.paginator.num_pages}}</a></li>
+                            </ul>
+                    </div>
+                {% endif %}
+            {% else %}
+                <p>No models found!!! :(</p>
+            {% endif %}
+            {# .... **More content, footer, etc.** .... #}
+
+                  </nav>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

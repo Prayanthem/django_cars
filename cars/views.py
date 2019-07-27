@@ -38,12 +38,19 @@ class ModelListView(ListView):
     model = Car
     template_name = 'cars/model_list.html'  
     paginate_by = 25
+    model_list = Car.objects.distinct('name')
+    queryset = model_list
+    context_object_name = 'model_list'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
-        context['model_list'] = Car.objects.distinct('name')
-        return context
+class CategoryListView(ListView):
+    model = Car
+    template_name = 'cars/category_list.html'  
+    paginate_by = 25
+    model_list = Car.objects.distinct('Karosseri')
+    queryset = model_list
+    context_object_name = 'model_list'
+
+
 
 '''
     Custom Views

@@ -18,23 +18,39 @@
                     </ul>
                 </ul>
             </ul>
-            <h5>Category</h5>
+            <p>Let's start from the bottom:</p>
+            <h5>Car</h5>
             <p>
-                You can access an analysis of a car category by using the url pattern 'cars/type/{category}', and replacing {category} with the category in question, hereafter SUV.
-                On the front page, all the categories are also listed, linked and clickable.
+                A car is an observation of an advertisement of a car with at least a specified ask price and milage. 
             </p>
             <p>
-                In a category page, you will see the OLS Regression Results of all the cars in the database which are of the SUV type.
-                The data is regressed with price and the endogenous (dependent) variable, and the exogenous (independent) variables are factor(model), milage (Kmstand), and model year (Årsmodell).
-                Most variable names appear in Norwegian, as the data is on Norwegian cars (<a href=#data>See Data</a>).
+                A list of all the cars available in the database can be found at 'cars/car'.
+            </p>
+            <p>
+                Details on a specific car can be found using the url pattern 'cars/{car_id}' where {car_id} is the primary key (id) of the car object.
+                The id of the car is typically the same as article number in the URL from the site where the car is being attempted sold. 
+            </p>
+            <p>
+                On the details page you will find most of the data which is stored on the car in the database. 
+                You will also find the historical price of the specific car charted below the listed data.
+                Perhaps most important for you as a user is the <strong>age</strong> of the car. This indicates how long it has been 
+                since the car was first registered in the database, and the time it was updated. 
+                It could very well be that reservation price (the lowest price a seller is willing to accept) falls as the age of the advertisement increases (ref: <a href="https://en.wikipedia.org/wiki/Search_theory">Search Theory</a>).
+                According to <a href="https://www.smartepenger.no/bilokonomi/2216-selge-bilen-via-finn-eller-til-forhandler-innbytte-2">Smartepenger and Rødbok AS</a> the average sale time, that is the time between the listing and the sale of the car, is 110 days.
             </p>
             <h5>Model</h5>
             <p>
-                You can access an analysis of a car category by using the url pattern 'cars/type/{category}', and replacing {category} with the category in question, hereafter SUV.
+                A car model is the name used by a manufacturer to market a range of similar cars.
+            </p>
+            <p>
+                A list of all the available car models in the database can be found at 'cars/model'.
+            </p>
+            <p>
+                You can access a details page for a car model by using the url pattern 'cars/model/{name}', and replacing {name} with the name of the car model, hereafter Volkswagen Golf.
                 On the front page, all the categories are also listed, linked and clickable. You can also search a car model on the front page.
             </p>
             <p>
-                In a model page, you will see much of the same as in a category page. The OLS Regression Results are of all cars in the database which are of that model type.
+                In a model page, you will see the OLS Regression Results of all the cars in the database which are of the SUV type.
                 The data is regressed with price and the endogenous (dependent) variable, and the exogenous (independent) variable is milage (Kmstand). 
                 Under the OLS regression result the regression line is plotted along with the confidence interval and the prediciton interval.
             </p>
@@ -58,18 +74,16 @@
                     </ul>
                 </div>
             </article>
-            <h5>Car</h5>
+            <h5>Category</h5>
             <p>
-                Details on a specific car can be found using the url pattern 'cars/{car_id}' where {car_id} is the primary key (id) of the car object.
-                The id of the car is typically the same as article number in the URL from the site where the car is being attempted sold. 
+                You can access an analysis of a car category by using the url pattern 'cars/category/{category}', and replacing {category} with the category in question, hereafter SUV.
+                On the front page, all the categories are also listed, linked and clickable.
+                The data is regressed with price and the endogenous (dependent) variable, and the exogenous (independent) variables are factor(model), milage (Kmstand), and model year (Årsmodell).
+                Most variable names appear in Norwegian, as the data is on Norwegian cars (<a href=#data>See Data</a>).
             </p>
             <p>
-                On the details page you will find most of the data which is stored on the car in the database. 
-                You will also find the historical price of the specific car charted below the listed data.
-                Perhaps most important for you as a user is the <strong>age</strong> of the car. This indicates how long it has been 
-                since the car was first registered in the database, and the time it was updated. 
-                It could very well be that reservation price (the lowest price a seller is willing to accept) falls as the age of the advertisement increases (ref: <a href="https://en.wikipedia.org/wiki/Search_theory">Search Theory</a>).
-                According to <a href="https://www.smartepenger.no/bilokonomi/2216-selge-bilen-via-finn-eller-til-forhandler-innbytte-2">Smartepenger and Rødbok AS</a> the average sale time, that is the time between the listing and the sale of the car, is 110 days.
+                In a category detail page, you will see much of the same as in a model details page. The OLS Regression Results are of all cars in the database which are of that category.
+
             </p>
             </div>
             <div id="price-calc">
