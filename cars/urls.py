@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.urls import include, path, re_path
 from . import views
+from cars.views import CarListView
 
 app_name = 'cars'
 urlpatterns = [
     # ex: /cars/
     path('', views.index, name='index'),
-    # ex: /cars/test/
-    path('test/', views.handler404, name='test'),
+    # ex: /cars/car/
+    path('car/', CarListView.as_view(), name='car_list'),
     # ex: /cars/methodology/
     path('methodology/', views.methodology, name='methodology'),
     # ex: /cars/methodology/

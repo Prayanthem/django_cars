@@ -6,6 +6,9 @@ from django.forms.models import model_to_dict
 from .forms import SearchForm, PriceCalculatorForm
 import json
 from django.template import RequestContext
+from django.views.generic.list import ListView
+from django.utils import timezone
+from django.core.paginator import Paginator
 
 '''
     Static Views
@@ -23,15 +26,17 @@ def legal(request):
     return render(request, 'cars/legal.html')
 
 '''
-    Custom handlers
+    Generic Views
 '''
-def handler404(request, *args, **argv):
-    response = render(request, 'cars/404.html')
-    response.status_code = 404
-    return response
+class CarListView(ListView):
+    model = Car
+    template_name = 'cars/car_list.html'  
+    context_object_name = "car_list"   
+    paginate_by = 25 
+
 
 '''
-    Dynamic Views
+    Custom Views
 '''
 def index(request):
     if request.method == 'GET':

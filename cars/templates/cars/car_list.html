@@ -1,0 +1,61 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <div class="content">
+            <h1>
+                Cars
+            </h1>
+            {# .... **Normal content list, maybe a table** .... #}
+            {% if car_list %}
+                <table id="cars">
+                    {% for car in car_list %}
+                        <tr>
+                            <td>{{ car.name }}</td>
+                            <td>{{ car.Årsmodell }}</td>
+                            <td><a href="{{ car.Finn_kode }}/" class="see_detail">detail</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {# .... **Now the pagination section** .... #}
+                {% if is_paginated %}
+                    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                        <span class="page-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}" class='pagination-previous'>Previous</a>
+                            {% endif %}
+                            <span class="page-current">
+                                <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} </a>
+                            </span>
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}" class='pagination-next'>Next</a>
+                            {% endif %}
+                            <!--
+                            <ul class="pagination-list">
+                                    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                                    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+                                    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+                            </ul>
+                            -->
+                        </span>
+                    </div>
+                {% endif %}
+            {% else %}
+                <h3>My Cars</h3>
+                <p>No cars found!!! :(</p>
+            {% endif %}
+            {# .... **More content, footer, etc.** .... #}
+
+                  </nav>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
