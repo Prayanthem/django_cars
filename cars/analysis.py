@@ -71,7 +71,11 @@ class MyAnalysis():
 
         def get_summary(self, model):
                 summ = model.summary()
-                return [summ.tables[0].as_html(), summ.tables[1].as_html(), summ.tables[2].as_html()]
+                tables = []
+                for table in summ.tables:
+                        tables.append(table.as_html())
+                return tables
+                #return [summ.tables[0].as_html(), summ.tables[1].as_html(), summ.tables[2].as_html(), summ.tables[3].as_html()]
 
         def get_equation(self, model):
                 dicts = {}

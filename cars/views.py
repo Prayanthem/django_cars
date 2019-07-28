@@ -41,6 +41,8 @@ class CarListView(ListView):
     paginate_by = 25 
 
 class ModelListView(ListView):
+    # Pages by letter
+    #pages = [myQuerySet.filter(myfield__istartswith=i) for i in "ABC...XYZ"] #full alphabet here
     model = Car
     template_name = 'cars/model_list.html'  
     paginate_by = 25

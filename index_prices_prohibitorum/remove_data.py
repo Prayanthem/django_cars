@@ -9,4 +9,8 @@ if __name__ == "__main__":
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'index_prices_prohibitorum.settings')
     django.setup()
     from cars.models import Car
-    Car.objects.all().delete()
+    cars = Car.objects.filter(pk__in=Car.objects.all().values_list('Finn_kode')[2450:])
+    print(cars.count())
+    cars.delete()
+    print(Car.objects.all().count())
+
