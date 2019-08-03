@@ -43,6 +43,9 @@ class Car(models.Model):
     Sylindervolum=models.FloatField(blank=True, null=True, default=0)
     Vekt=models.IntegerField(blank=True, null=True, default=0)
 
+    #Boolean
+    solgt = models.BooleanField(default=False)
+
         # Elbil
     RekkeviddeWLTP = models.IntegerField(blank=True, null=True, default=0)
     Batterikapasitet = models.IntegerField(blank=True, null=True, default=0)

@@ -4,8 +4,12 @@ import re
 from ..items import CarItem
 import json
 import os
+from scrapy.spiders import BaseSpider
+from scrapy.xlib.pydispatch import dispatcher
+from scrapy import signals
 
-class FinnBilFromUrlSpider(scrapy.Spider):
+class FinnBilFromUrlSpider(BaseSpider):
+    handle_httpstatus_list = [404]
     name = 'finn_bil_from_url'
     allowed_domains = ["finn.no"]
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -13,7 +17,15 @@ class FinnBilFromUrlSpider(scrapy.Spider):
     start_urls = [l.strip() for l in open('urls.txt').readlines()]
     #print(start_urls)
 
+    
+    def __init__(self, category=None):
+        self.failed_urls = []
+
     def parse(self, response):
+        if response.status == 404:
+            self.crawler.stats.inc_value('failed_url_count')
+            self.failed_urls.append(response.url)
+
         dicts = {}
         info_keys = response.css("dt::text").getall()
         info_values = response.css("dd::text").getall()
@@ -56,6 +68,12 @@ class FinnBilFromUrlSpider(scrapy.Spider):
         dicts['header'] = response.css('div.panel h1.u-t2 + p::text')[0].get().replace('\xa0', ' ')
         dicts['totalpris'] = response.css('span.u-t3::text').get().replace('\xa0', '').replace(' kr', '')
         dicts['Finn_kode'] = str(response).split('=')[-1].replace('>', '')
+        dicts['solgt'] = False
+
+        warnings = response.css('span.status--warning').getall()
+        for elem in warnings:
+            if 'SOLGT' in elem:
+                dicts['solgt'] = True  
 
         if "Omregistrering" in dicts:
             if dicts['Omregistrering'] == "Fritatt":
@@ -71,3 +89,13 @@ class FinnBilFromUrlSpider(scrapy.Spider):
                 car_item[field] = None
 
         yield car_item
+
+    def handle_spider_closed(self, spider, reason):
+        self.crawler.stats.set_value('failed_urls', ','.join(spider.failed_urls))
+
+    def process_exception(self, response, exception, spider):
+        ex_class = "%s.%s" % (exception.__class__.__module__, exception.__class__.__name__)
+        self.crawler.stats.inc_value('downloader/exception_count', spider=spider)
+        self.crawler.stats.inc_value('downloader/exception_type_count/%s' % ex_class, spider=spider)
+
+    dispatcher.connect(handle_spider_closed, signals.spider_closed)
