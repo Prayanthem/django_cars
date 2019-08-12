@@ -44,6 +44,7 @@ class CarItem(scrapy.Item):
     Fargebeskrivelse = scrapy.Field()
 
     Finn_kode = scrapy.Field()
+    solgt = scrapy.Field()
     Batterikapasitet = scrapy.Field()
     RekkeviddeWLTP = scrapy.Field()
     Interiørfarge = scrapy.Field()

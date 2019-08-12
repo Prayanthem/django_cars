@@ -16,6 +16,7 @@
                         <th>Model Year</th> 
                         <th>Age</th>
                         <th>Sold</th>
+                        <th>Removed</th>
                         <th>Code</th>
                     </tr>
                     {% for car in car_list %}
@@ -24,6 +25,7 @@
                             <td>{{ car.Årsmodell }}</td>
                             <td>{{ car.age }}</td>
                             <td>{{ car.solgt }}</td>
+                            <td>{{ car.removed }}</td>
                             <td>{{ car.Finn_kode }}</td>
                             <td><a href="{{ car.Finn_kode }}/" class="see_detail">detail</a></td>
                         </tr>

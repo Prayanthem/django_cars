@@ -3,10 +3,34 @@ import scrapy
 import re
 from ..items import CarItem
 import json
-import os
+import os, sys, django
 from scrapy.spiders import BaseSpider
 from scrapy.xlib.pydispatch import dispatcher
 from scrapy import signals
+
+def create_codes_urls():
+    print("Starting...")
+
+    # Loading Django Environment
+    path = 'C:/Users/taplop/Code/django_cars'
+    if path not in sys.path:
+        sys.path.append(path)
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'index_prices_prohibitorum.settings')
+    django.setup()
+
+    # Creating Urls
+    urls = []
+    codes = []
+    from index_prices_prohibitorum import settings
+    from cars.models import Car
+    if not Car.objects.all():
+        print("No cars found.")
+    for car in Car.objects.filter(solgt=False):
+        url = 'https://www.finn.no/car/used/ad.html?finnkode={}'.format(car.Finn_kode)
+        urls.append(url)
+        codes.append(car.Finn_kode)
+    print(urls)
+    return codes, urls
 
 class FinnBilFromUrlSpider(BaseSpider):
     handle_httpstatus_list = [404]
@@ -14,9 +38,10 @@ class FinnBilFromUrlSpider(BaseSpider):
     allowed_domains = ["finn.no"]
     dir_path = os.path.dirname(os.path.realpath(__file__))
     print(dir_path)
-    start_urls = [l.strip() for l in open('urls.txt').readlines()]
+    #start_urls = [l.strip() for l in open('urls.txt').readlines()]
     #print(start_urls)
-
+    codes, urls = create_codes_urls()
+    start_urls = urls
     
     def __init__(self, category=None):
         self.failed_urls = []
@@ -69,11 +94,16 @@ class FinnBilFromUrlSpider(BaseSpider):
         dicts['totalpris'] = response.css('span.u-t3::text').get().replace('\xa0', '').replace(' kr', '')
         dicts['Finn_kode'] = str(response).split('=')[-1].replace('>', '')
         dicts['solgt'] = False
-
+        dicts['removed'] = False
+        
         warnings = response.css('span.status--warning').getall()
         for elem in warnings:
             if 'SOLGT' in elem:
+                print('This car has been sold!')
                 dicts['solgt'] = True  
+        if response.status == 410:
+            print('This car has been sold!')
+            dicts['removed'] = True       
 
         if "Omregistrering" in dicts:
             if dicts['Omregistrering'] == "Fritatt":

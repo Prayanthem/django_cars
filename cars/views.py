@@ -35,7 +35,7 @@ def legal(request):
 class CarListView(ListView):
     model = Car
     template_name = 'cars/car_list.html'
-    car_list = Car.objects.all().order_by('-age')
+    car_list = Car.objects.all().order_by('solgt')
     queryset = car_list
     context_object_name = "car_list"   
     paginate_by = 25 

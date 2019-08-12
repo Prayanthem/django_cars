@@ -16,7 +16,7 @@ if __name__ == "__main__":
     my_file = open('urls.txt', 'w')
     if not Car.objects.all():
         print("No cars found.")
-    for car in Car.objects.all():
+    for car in Car.objects.filter(solgt=False):
         url = 'https://www.finn.no/car/used/ad.html?finnkode={}\n'.format(car.Finn_kode)
         my_file.write(url)
     my_file.close()

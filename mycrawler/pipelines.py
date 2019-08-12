@@ -20,8 +20,8 @@ class MycrawlerPipeline(object):
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'index_prices_prohibitorum.settings')
         django.setup()
 
-        from cars.models import Car, Price
-        self.codes = Car.objects.values_list('Finn_kode', flat=True).all()
+    def spider_opened(self, spider):
+        self.urls = spider.urls
 
     def process_item(self, item, spider):
 
@@ -30,7 +30,7 @@ class MycrawlerPipeline(object):
         # Creating model instances and saving them to DB
         print("Entering process_item method, and attempting to create a car object")
 
-        if item['Finn_kode'] in self.codes:
+        if item['Finn_kode'] in spider.codes:
             print('This is a crappy car.')
             car = Car.objects.filter(Finn_kode=item['Finn_kode']).get()
             temp_age = timezone.now() - car.created_at
@@ -39,10 +39,15 @@ class MycrawlerPipeline(object):
             if car.age < temp_age.days:
                 print('New age {}'.format(temp_age))
                 car.age = temp_age.days
-                car.save()
+            if car.solgt != item['solgt']:
+                print("Marking car as sold")
+                car.solgt = item['solgt']
+            if car.removed != item['removed']:
+                print('Marking car as removed')
+                car.removed = item['removed']
+            car.save()
         else:
-            print("Car is not in DB.")
-            return 
+            print("{} is not in the DB".format(item['Finn_kode']))
             # Consider: https://stackoverflow.com/questions/8372703/how-can-i-use-different-pipelines-for-different-spiders-in-a-single-scrapy-proje
             car = Car()
 
@@ -78,6 +83,7 @@ class MycrawlerPipeline(object):
             car.Sylindervolum= item['Sylindervolum']
             car.totalpris= item['totalpris']
             car.Vekt= item['Vekt']
+            car.solgt = item['solgt']
 
             car.RekkeviddeWLTP = item['RekkeviddeWLTP']
             car.Batterikapasitet = item['Batterikapasitet']

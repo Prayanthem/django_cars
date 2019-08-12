@@ -90,7 +90,7 @@ class MyAnalysis():
         def graph_price_history(self, finn_kode):
                 car = Car.objects.filter(Finn_kode=finn_kode).get()
                 prices = Price.objects.filter(car=car).values()
-                df = pd.DataFrame(prices)
+                df = pd.DataFrame(prices).sort_values('date')
 
                 y = df['price']
                 x = df['date']
@@ -156,6 +156,9 @@ class MyAnalysis():
                                 text=df['header'],
                                 name="Observations",
                                 customdata=links,
+                                marker=dict(
+                                        size=df["age"],
+                                        )
                                 )
                 regression_line = go.Scatter(x=x,
                                 y=fitted,

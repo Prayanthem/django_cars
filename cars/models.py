@@ -45,6 +45,7 @@ class Car(models.Model):
 
     #Boolean
     solgt = models.BooleanField(default=False)
+    removed = models.BooleanField(default=False)
 
         # Elbil
     RekkeviddeWLTP = models.IntegerField(blank=True, null=True, default=0)
