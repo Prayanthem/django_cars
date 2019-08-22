@@ -150,15 +150,17 @@ class MyAnalysis():
                 alpha = 0.1
                 frame = predictions.summary_frame(alpha=alpha) #https://stackoverflow.com/questions/17559408/confidence-and-prediction-intervals-with-statsmodels
 
-                raw_data = go.Scatter(x=x,
+                raw_data = go.Scatter(
+                                x=x,
                                 y=y,
                                 mode='markers',
-                                text=df['header'],
+                                text='header',
                                 name="Observations",
                                 customdata=links,
                                 marker=dict(
                                         size=df["age"],
-                                        )
+                                        color=df['solgt']*1, #turnd bool to int
+                                        ),
                                 )
                 regression_line = go.Scatter(x=x,
                                 y=fitted,
