@@ -10,7 +10,7 @@ import os
 import django
 from django.utils import timezone
 
-class MycrawlerPipeline(object):
+class FinnSecondhandPipeline(object):
     def __init__(self):
         print('Initializing Pipeline...')
         # Importing models

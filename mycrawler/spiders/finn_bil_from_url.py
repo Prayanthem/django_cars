@@ -4,7 +4,7 @@ import re
 from ..items import CarItem
 import json
 import os, sys, django
-from scrapy.spiders import BaseSpider
+#from scrapy.spiders import BaseSpider
 from scrapy.xlib.pydispatch import dispatcher
 from scrapy import signals
 
@@ -32,7 +32,7 @@ def create_codes_urls():
     print(urls)
     return codes, urls
 
-class FinnBilFromUrlSpider(BaseSpider):
+class FinnBilFromUrlSpider(scrapy.spiders.Spider):
     handle_httpstatus_list = [404]
     name = 'finn_bil_from_url'
     allowed_domains = ["finn.no"]
@@ -42,6 +42,12 @@ class FinnBilFromUrlSpider(BaseSpider):
     #print(start_urls)
     codes, urls = create_codes_urls()
     start_urls = urls
+
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'mycrawler.pipelines.FinnSecondhandPipeline': 400
+        }
+    }
     
     def __init__(self, category=None):
         self.failed_urls = []

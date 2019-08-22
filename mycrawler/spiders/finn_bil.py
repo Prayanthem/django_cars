@@ -9,6 +9,12 @@ class FinnBilSpider(scrapy.Spider):
     #allowed_domains = ['https://www.finn.no/car/used/search.html?filters=/']
     start_urls = ['https://www.finn.no/car/used/search.html?filters=/']
 
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'mycrawler.pipelines.FinnSecondhandPipeline': 400
+        }
+    }
+
     def parse(self, response):
         # follow links to cars
         for href in  response.css('a.ads__unit__link::attr(href)'):
